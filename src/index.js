@@ -1,3 +1,5 @@
+const FontelloService = require('./fontello.service');
+
 class FontelloWebpackPlugin {
 
   apply(compiler) {
@@ -6,6 +8,7 @@ class FontelloWebpackPlugin {
       'FontelloWebpackPlugin',
       (compilation, callback) => {
         console.log('I am here');
+
         callback();
       }
     );
