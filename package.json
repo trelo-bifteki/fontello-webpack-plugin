@@ -1,0 +1,23 @@
+{
+  "name": "@trelobifteki/fontello-webpack-plugin",
+  "version": "1.0.0",
+  "description": "Fontello webpack plugin",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trelo-bifteki/fontello-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "fontello"
+  ],
+  "author": "Lampros Papadimitriou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trelo-bifteki/fontello-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/trelo-bifteki/fontello-webpack-plugin#readme"
+}
