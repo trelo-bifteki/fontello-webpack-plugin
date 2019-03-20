@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const FormData = require('form-data');
 
 const defaultOptions = {
-  host: 'https://www.fontello.com',
+  host: 'http://www.fontello.com',
 };
 
 /**
@@ -52,8 +52,15 @@ class FontelloService {
       method: 'POST',
       body,
     }).then(response => {
-      console.info(response);
-    });
+      if (response.ok) {
+        return response.text();
+      } else {
+        throw new Error(response.statusText);
+      }
+    }).then(responseBody => {
+      console.debug(`session: ${responseBody}`)
+      this._sesssionId = responseBody;
+    })
   }
 }
 
