@@ -66,6 +66,23 @@ class FontelloService {
         return responseBody;
     });
   }
+
+  fetchFonts() {
+    const { host } = this.options;
+    if (!this._sesssionId) {
+      throw new Error('Cannot fetch fonts wihout session');
+    }
+
+    return fetch(
+      `${host}/${this._sesssionId}/get`,
+    ).then(response => {
+      if (response.ok) {
+        return response.body;
+      } else {
+        throw new Error('Cannot fetch fonts: ${response.statusText}');
+      }
+    });
+  }
 }
 
 module.exports = FontelloService;

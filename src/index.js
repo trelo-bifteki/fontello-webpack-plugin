@@ -15,9 +15,14 @@ class FontelloWebpackPlugin {
       'FontelloWebpackPlugin',
       (compilation, callback) => {
         fontelloService.initSession().then(() => {
+          fontelloService.fetchFonts().then(body => {
+            console.log(`fonts downloaded`);
+          }).catch(error => {
+            console.error('Unable to fetch fonts', error);
+          })
         }).catch(error => {
           console.error('session init failed', error);
-        })
+        });
         callback();
       }
     );
