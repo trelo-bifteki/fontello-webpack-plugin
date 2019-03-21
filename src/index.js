@@ -1,5 +1,17 @@
 const createConfig = require('./config');
 const FontelloService = require('./fontello.service');
+const unzip = require('unzip');
+
+const unzipByPipeline = pipeline => new Promise((resolve, reject) => {
+  const assets = {};
+
+  pipeline.pipe(unzip.Parse())
+    .on('entry', entry => {
+      entry.autodrain();
+    })
+    .on('error', error => reject(error))
+    .on('close', () => resolve(assets));
+});
 
 class FontelloWebpackPlugin {
 
@@ -16,7 +28,9 @@ class FontelloWebpackPlugin {
       (compilation, callback) => {
         fontelloService.initSession().then(() => {
           fontelloService.fetchFonts().then(body => {
-            console.log(`fonts downloaded`);
+            unzipByPipeline(body).then(() => {
+              console.log('fonts downloaded and unzipped');
+            })
           }).catch(error => {
             console.error('Unable to fetch fonts', error);
           })

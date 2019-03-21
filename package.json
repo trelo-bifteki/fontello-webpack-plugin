@@ -24,6 +24,7 @@
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
-    "form-data": "^2.3.3"
+    "form-data": "^2.3.3",
+    "unzip": "^0.1.11"
   }
 }
