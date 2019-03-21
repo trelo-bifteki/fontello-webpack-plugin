@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const FormData = require('form-data');
 
 const defaultOptions = {
-  host: 'http://www.fontello.com',
+  host: 'http://fontello.com',
 };
 
 /**
@@ -33,34 +33,38 @@ class FontelloService {
       if (this._session) {
         return Promise.resolve(this._session);
       }
-      return this._fetchSession();
+      return this._fetchSession(this.options);
   }
 
-  _fetchSession() {
-    const {host, config} = this.options;
+  _fetchSession(options) {
+    const {host, config} = options;
     const body = new FormData();
+    const serializedConfig = serialize(config);
+
     body.append(
       'config',
-      serialize(config),
+      serializedConfig,
       {
-        filename: 'config.json',
-        contentType: 'application/json',
-      }
-    );
+        filename: "config.json",
+        contentType: "application/json"
+		});
 
-    return fetch(host, {
-      method: 'POST',
-      body,
-    }).then(response => {
-      if (response.ok) {
-        return response.text();
-      } else {
-        throw new Error(response.statusText);
-      }
-    }).then(responseBody => {
-      console.debug(`session: ${responseBody}`)
-      this._sesssionId = responseBody;
-    })
+    return fetch(
+      host,
+      {
+        method: "POST",
+        body
+      }).then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error(response.statusText);
+        }
+      }).then(responseBody => {
+        this._sesssionId = responseBody;
+
+        return responseBody;
+    });
   }
 }
 

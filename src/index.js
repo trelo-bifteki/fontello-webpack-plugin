@@ -9,14 +9,12 @@ class FontelloWebpackPlugin {
 
   apply(compiler) {
     // specify the hook to attach to
-    const client = new FontelloService(this.options);
+    const fontelloService = new FontelloService(this.options);
 
     compiler.hooks.emit.tapAsync(
       'FontelloWebpackPlugin',
       (compilation, callback) => {
-        console.log('initialize plugin');
-        client.initSession().then(() => {
-          console.log('session initialized');
+        fontelloService.initSession().then(() => {
         }).catch(error => {
           console.error('session init failed', error);
         })
